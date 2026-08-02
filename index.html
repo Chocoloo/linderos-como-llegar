@@ -175,6 +175,15 @@
   .horario-linea + .horario-linea { margin-top: 3px; }
   .horario-linea span:first-child { color: var(--suave); }
 
+  .horario-nota {
+    display: block;
+    margin-top: 9px;
+    padding-top: 9px;
+    border-top: 1px solid var(--borde);
+    color: var(--suave);
+    font-size: 13.5px;
+  }
+
   footer { margin-top: 26px; text-align: center; }
 
   footer a {
@@ -281,8 +290,10 @@
     </p>
     <p>
       <span class="rotulo">Horario</span>
-      <span class="horario-linea"><span>Lunes a sábado</span><span>10:00 – 19:00</span></span>
+      <span class="horario-linea"><span>Lunes a viernes</span><span>10:00 – 19:00</span></span>
+      <span class="horario-linea"><span>Sábado</span><span>10:00 – 18:30</span></span>
       <span class="horario-linea"><span>Domingo</span><span>11:00 – 14:00</span></span>
+      <span class="horario-nota">Cerramos de 14:00 a 14:30 por almuerzo</span>
     </p>
   </div>
 
@@ -300,9 +311,21 @@
   document.getElementById("gmaps").href = "https://www.google.com/maps/dir/?api=1&destination=" + COORD + "&travelmode=driving";
   document.getElementById("apple").href = "https://maps.apple.com/?daddr=" + COORD + "&dirflg=d";
 
-  // Abierto / cerrado en vivo, en hora de Chile. Lun-sáb 10-19, dom 11-14.
+  // Abierto / cerrado en vivo, en hora de Chile.
+  // Lun-vie 10-19, sáb 10-18:30, dom 11-14. Cerrado de 14:00 a 14:30 por almuerzo
+  // (el domingo no aplica: a esa hora ya cerró). Los tramos van en minutos desde
+  // medianoche, así se comparan directo contra la hora actual.
   (function () {
-    var horario = { 0: [11, 14], 1: [10, 19], 2: [10, 19], 3: [10, 19], 4: [10, 19], 5: [10, 19], 6: [10, 19] };
+    var MAÑANA = [600, 840];               // 10:00 – 14:00
+    var horario = {
+      0: [[660, 840]],                     // domingo    11:00 – 14:00
+      1: [MAÑANA, [870, 1140]],            // lun a vie  10:00 – 14:00 y 14:30 – 19:00
+      2: [MAÑANA, [870, 1140]],
+      3: [MAÑANA, [870, 1140]],
+      4: [MAÑANA, [870, 1140]],
+      5: [MAÑANA, [870, 1140]],
+      6: [MAÑANA, [870, 1110]]             // sábado     10:00 – 14:00 y 14:30 – 18:30
+    };
 
     var partes;
     try {
@@ -322,15 +345,30 @@
     var dia = dias[valor("weekday").toLowerCase().replace(".", "")];
     if (dia === undefined) return;
 
-    var minutos = parseInt(valor("hour"), 10) * 60 + parseInt(valor("minute"), 10);
-    var tramo   = horario[dia];
-    var abierto = minutos >= tramo[0] * 60 && minutos < tramo[1] * 60;
+    var ahora  = parseInt(valor("hour"), 10) * 60 + parseInt(valor("minute"), 10);
+    var tramos = horario[dia];
+    var reloj  = function (m) {
+      return Math.floor(m / 60) + ":" + (m % 60 < 10 ? "0" : "") + (m % 60);
+    };
+
+    var texto = "Cerrado ahora", abierto = false;
+    for (var i = 0; i < tramos.length; i++) {
+      if (ahora >= tramos[i][0] && ahora < tramos[i][1]) {
+        abierto = true;
+        texto = "Abierto ahora · cierra a las " + reloj(tramos[i][1]);
+        break;
+      }
+      if (ahora < tramos[i][0]) {
+        // Todavía no abre este tramo: si es el segundo, es la pausa de almuerzo.
+        texto = (i > 0 ? "Cerrado por almuerzo · abre a las " : "Cerrado · abre a las ")
+              + reloj(tramos[i][0]);
+        break;
+      }
+    }
 
     var caja = document.getElementById("estado");
     caja.dataset.abierto = abierto ? "si" : "no";
-    document.getElementById("estado-texto").textContent =
-      abierto ? "Abierto ahora · cierra a las " + tramo[1] + ":00"
-              : "Cerrado ahora";
+    document.getElementById("estado-texto").textContent = texto;
     caja.hidden = false;
   })();
 </script>
