@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<!--
+  Proveeduría Los Linderos — página "Cómo llegar" para el link en bio de Instagram.
+
+  ⚠️ COORDENADAS PROVISORIAS ⚠️
+  El pin actual (-33.76285, -70.74346) es el del Centro Comercial Los Linderos
+  (referencia: Unimarc). Falta el pin exacto de la puerta del local 7.
+  Para corregirlo: buscar y reemplazar TODAS las apariciones de
+      -33.76285,-70.74346   (en los enlaces)
+      -33.76285, -70.74346  (en la constante COORD del script, al final)
+  por las coordenadas reales. No hay nada más que tocar.
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cómo llegar — Proveeduría Los Linderos</title>
+<meta name="description" content="Panamericana Sur 4251, local 7, Los Linderos, Buin. Toca y te llevamos hasta la puerta.">
+<meta name="theme-color" content="#f7f4ed">
+<meta property="og:title" content="Cómo llegar — Proveeduría Los Linderos">
+<meta property="og:description" content="Panamericana Sur 4251, local 7, Los Linderos, Buin.">
+<meta property="og:type" content="website">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :root {
+    --papel:   #f7f4ed;
+    --tinta:   #23301f;
+    --suave:   #5f6b59;
+    --verde:   #2f6b3f;
+    --borde:   #e2ddd1;
+    --tarjeta: #ffffff;
+    --waze:    #33ccff;
+  }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    padding: 28px 20px calc(40px + env(safe-area-inset-bottom));
+    background: var(--papel);
+    color: var(--tinta);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main { max-width: 420px; margin: 0 auto; }
+
+  /* ---------- encabezado ---------- */
+
+  header { text-align: center; margin-bottom: 26px; }
+
+  h1 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  .sub {
+    margin: 5px 0 0;
+    font-size: 15px;
+    color: var(--suave);
+  }
+
+  .estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 14px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+
+  .punto {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--suave);
+  }
+  .estado[data-abierto="si"] .punto { background: #34a853; }
+  .estado[data-abierto="no"] .punto { background: #c8553d; }
+
+  /* ---------- botones ---------- */
+
+  .botones { display: grid; gap: 12px; }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 17px 20px;
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--tinta);
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    font-size: 17px;
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(35,48,31,.05);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+
+  .btn:active { transform: scale(.98); box-shadow: none; }
+
+  .btn .flecha {
+    margin-left: auto;
+    color: var(--suave);
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .btn small {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--suave);
+    margin-top: 1px;
+  }
+
+  .btn svg { flex: 0 0 auto; }
+
+  .btn--waze  { background: var(--waze); border-color: #17b8ef; color: #06333f; }
+  .btn--waze small, .btn--waze .flecha { color: #0b4a5b; }
+
+  .btn--wsp   { background: #25d366; border-color: #1fbb59; color: #073d1c; }
+  .btn--wsp small, .btn--wsp .flecha { color: #0a5528; }
+
+  /* ---------- mapa ---------- */
+
+  .mapa {
+    margin: 22px 0 6px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--borde);
+    background: #e8e4da;
+    line-height: 0;
+  }
+  .mapa iframe { width: 100%; height: 190px; border: 0; display: block; }
+
+  /* ---------- datos ---------- */
+
+  .datos {
+    margin-top: 22px;
+    padding: 18px 20px;
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    font-size: 15px;
+  }
+
+  .datos p { margin: 0 0 14px; }
+  .datos p:last-child { margin-bottom: 0; }
+
+  .datos .rotulo {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--suave);
+    margin-bottom: 3px;
+  }
+
+  .referencia { color: var(--suave); font-size: 14px; }
+
+  .horario-linea { display: flex; justify-content: space-between; gap: 16px; }
+  .horario-linea + .horario-linea { margin-top: 3px; }
+  .horario-linea span:first-child { color: var(--suave); }
+
+  footer { margin-top: 26px; text-align: center; }
+
+  footer a {
+    color: var(--verde);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .apple {
+    display: block;
+    margin-top: 12px;
+    text-align: center;
+    color: var(--suave);
+    font-size: 14px;
+    text-decoration: none;
+  }
+  .apple:active { color: var(--tinta); }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --papel:   #161914;
+      --tinta:   #eceade;
+      --suave:   #9aa394;
+      --verde:   #7cc98c;
+      --borde:   #2e332b;
+      --tarjeta: #1e221c;
+    }
+    .mapa { background: #24281f; }
+    .mapa iframe { filter: brightness(.82) contrast(1.05); }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <header>
+    <h1>Proveeduría Los Linderos</h1>
+    <p class="sub">Panamericana Sur 4251, local 7 · Buin</p>
+    <div class="estado" id="estado" hidden>
+      <span class="punto"></span><span id="estado-texto"></span>
+    </div>
+  </header>
+
+  <div class="botones">
+
+    <a class="btn btn--waze" id="waze"
+       href="https://waze.com/ul?ll=-33.76285,-70.74346&navigate=yes">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+      </svg>
+      <span>Ir con Waze<small>Navegación paso a paso</small></span>
+      <span class="flecha" aria-hidden="true">›</span>
+    </a>
+
+    <a class="btn" id="gmaps"
+       href="https://www.google.com/maps/dir/?api=1&destination=-33.76285,-70.74346&travelmode=driving">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 10c0 6-9 13-9 13s-9-7-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+      <span>Ir con Google Maps<small>Ruta desde donde estés</small></span>
+      <span class="flecha" aria-hidden="true">›</span>
+    </a>
+
+    <!--
+      BOTÓN DE WHATSAPP — desactivado a propósito (2026-08-02).
+      Se activa recién cuando el número de la tienda esté conectado y contestando.
+      Para reactivarlo: descomentar este bloque y poner el número real en el href
+      (formato internacional sin signos: 569XXXXXXXX). El CSS .btn--wsp ya está listo.
+
+    <a class="btn btn--wsp"
+       href="https://wa.me/569XXXXXXXX?text=Hola!%20Quiero%20consultar%20por%20un%20producto">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.9-.9L3 20.5l1.6-4.9A8.4 8.4 0 0 1 3.6 11 8.5 8.5 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"></path>
+      </svg>
+      <span>Escríbenos por WhatsApp<small>Precios, stock y pedidos</small></span>
+      <span class="flecha" aria-hidden="true">›</span>
+    </a>
+    -->
+
+  </div>
+
+  <div class="mapa">
+    <iframe
+      title="Mapa de la ubicación de Proveeduría Los Linderos"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=-70.7480%2C-33.7665%2C-70.7390%2C-33.7595&layer=mapnik&marker=-33.76285%2C-70.74346"></iframe>
+  </div>
+
+  <a class="apple" id="apple"
+     href="https://maps.apple.com/?daddr=-33.76285,-70.74346&dirflg=d">Prefiero Apple Maps</a>
+
+  <div class="datos">
+    <p>
+      <span class="rotulo">Dónde estamos</span>
+      Panamericana Sur 4251, local 7<br>
+      Los Linderos, Buin · Región Metropolitana<br>
+      <span class="referencia">En el Centro Comercial Los Linderos, junto al Unimarc y la bencinera Shell.</span>
+    </p>
+    <p>
+      <span class="rotulo">Horario</span>
+      <span class="horario-linea"><span>Lunes a sábado</span><span>10:00 – 19:00</span></span>
+      <span class="horario-linea"><span>Domingo</span><span>11:00 – 14:00</span></span>
+    </p>
+  </div>
+
+  <footer>
+    <a href="https://www.instagram.com/proveedurialoslinderos/">Síguenos en Instagram →</a>
+  </footer>
+
+</main>
+
+<script>
+  // Punto único de verdad. Al corregir el pin, cambiar acá y en los href de arriba.
+  var COORD = "-33.76285,-70.74346";
+
+  document.getElementById("waze").href  = "https://waze.com/ul?ll=" + COORD + "&navigate=yes";
+  document.getElementById("gmaps").href = "https://www.google.com/maps/dir/?api=1&destination=" + COORD + "&travelmode=driving";
+  document.getElementById("apple").href = "https://maps.apple.com/?daddr=" + COORD + "&dirflg=d";
+
+  // Abierto / cerrado en vivo, en hora de Chile. Lun-sáb 10-19, dom 11-14.
+  (function () {
+    var horario = { 0: [11, 14], 1: [10, 19], 2: [10, 19], 3: [10, 19], 4: [10, 19], 5: [10, 19], 6: [10, 19] };
+
+    var partes;
+    try {
+      partes = new Intl.DateTimeFormat("es-CL", {
+        timeZone: "America/Santiago", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false
+      }).formatToParts(new Date());
+    } catch (e) {
+      return; // sin soporte de zona horaria, mejor no mostrar nada que mentir
+    }
+
+    var dias = { dom: 0, lun: 1, mar: 2, "mié": 3, mie: 3, jue: 4, vie: 5, "sáb": 6, sab: 6 };
+    var valor = function (tipo) {
+      for (var i = 0; i < partes.length; i++) if (partes[i].type === tipo) return partes[i].value;
+      return "";
+    };
+
+    var dia = dias[valor("weekday").toLowerCase().replace(".", "")];
+    if (dia === undefined) return;
+
+    var minutos = parseInt(valor("hour"), 10) * 60 + parseInt(valor("minute"), 10);
+    var tramo   = horario[dia];
+    var abierto = minutos >= tramo[0] * 60 && minutos < tramo[1] * 60;
+
+    var caja = document.getElementById("estado");
+    caja.dataset.abierto = abierto ? "si" : "no";
+    document.getElementById("estado-texto").textContent =
+      abierto ? "Abierto ahora · cierra a las " + tramo[1] + ":00"
+              : "Cerrado ahora";
+    caja.hidden = false;
+  })();
+</script>
+</body>
+</html>
