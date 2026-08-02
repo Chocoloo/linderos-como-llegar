@@ -2,13 +2,16 @@
 <!--
   Proveeduría Los Linderos — página "Cómo llegar" para el link en bio de Instagram.
 
-  ⚠️ COORDENADAS PROVISORIAS ⚠️
-  El pin actual (-33.76285, -70.74346) es el del Centro Comercial Los Linderos
-  (referencia: Unimarc). Falta el pin exacto de la puerta del local 7.
-  Para corregirlo: buscar y reemplazar TODAS las apariciones de
-      -33.76285,-70.74346   (en los enlaces)
-      -33.76285, -70.74346  (en la constante COORD del script, al final)
-  por las coordenadas reales. No hay nada más que tocar.
+  El pin (-33.763277, -70.743065) lo confirmó el cliente el 2026-08-02: la entrada
+  del Centro Comercial Los Linderos desde la Panamericana, entre el Unimarc y la
+  bencinera Shell. Apunta a la entrada y no al techo del local a propósito — los
+  navegadores trazan la ruta hasta el punto que se les da, y así termina donde
+  efectivamente hay que doblar. Los letreros del strip center hacen el resto.
+
+  Para moverlo: buscar y reemplazar TODAS las apariciones de
+      -33.763277,-70.743065   (en los enlaces y en el marcador del mapa)
+      -33.763277, -70.743065  (en la constante COORD del script, al final)
+  y actualizar LAT/LON en generar-piezas.py antes de volver a correrlo.
 -->
 <html lang="es">
 <head>
@@ -219,7 +222,7 @@
   <div class="botones">
 
     <a class="btn btn--waze" id="waze"
-       href="https://waze.com/ul?ll=-33.76285,-70.74346&navigate=yes">
+       href="https://waze.com/ul?ll=-33.763277,-70.743065&navigate=yes">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
@@ -229,7 +232,7 @@
     </a>
 
     <a class="btn" id="gmaps"
-       href="https://www.google.com/maps/dir/?api=1&destination=-33.76285,-70.74346&travelmode=driving">
+       href="https://www.google.com/maps/dir/?api=1&destination=-33.763277,-70.743065&travelmode=driving">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M21 10c0 6-9 13-9 13s-9-7-9-13a9 9 0 0 1 18 0z"></path>
@@ -263,11 +266,11 @@
       title="Mapa de la ubicación de Proveeduría Los Linderos"
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
-      src="https://www.openstreetmap.org/export/embed.html?bbox=-70.7480%2C-33.7665%2C-70.7390%2C-33.7595&layer=mapnik&marker=-33.76285%2C-70.74346"></iframe>
+      src="https://www.openstreetmap.org/export/embed.html?bbox=-70.7476%2C-33.7668%2C-70.7386%2C-33.7598&layer=mapnik&marker=-33.763277%2C-70.743065"></iframe>
   </div>
 
   <a class="apple" id="apple"
-     href="https://maps.apple.com/?daddr=-33.76285,-70.74346&dirflg=d">Prefiero Apple Maps</a>
+     href="https://maps.apple.com/?daddr=-33.763277,-70.743065&dirflg=d">Prefiero Apple Maps</a>
 
   <div class="datos">
     <p>
@@ -291,7 +294,7 @@
 
 <script>
   // Punto único de verdad. Al corregir el pin, cambiar acá y en los href de arriba.
-  var COORD = "-33.76285,-70.74346";
+  var COORD = "-33.763277,-70.743065";
 
   document.getElementById("waze").href  = "https://waze.com/ul?ll=" + COORD + "&navigate=yes";
   document.getElementById("gmaps").href = "https://www.google.com/maps/dir/?api=1&destination=" + COORD + "&travelmode=driving";
