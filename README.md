@@ -1,15 +1,13 @@
-# Cómo llegar — Proveeduría Los Linderos
+# Proveeduría Los Linderos — página de contacto
 
-Página de una sola vista con la ubicación de la tienda, pensada para el enlace del perfil
-de Instagram. Botones directos a Waze y Google Maps.
+Página que se enlaza desde la bio de Instagram. Lleva al WhatsApp de la tienda y muestra
+dirección, cómo llegar (Google Maps, Waze, Apple Maps) y horario.
 
-👉 https://chocoloo.github.io/linderos-como-llegar/
+- `index.html` — la página completa, sin dependencias externas (~7 KB, carga instantánea).
+- `CNAME` — dominio propio: proveedurialoslinderos.com
+- `piezas/` — maquetas para promocionarla en Instagram.
 
-## Actualizar el pin del mapa
+El indicador "Abierto ahora / Cerrado" se calcula en el navegador, siempre en hora de Chile.
 
-Los tres enlaces y el mapa salen de un único par de coordenadas. Para moverlo, buscar y
-reemplazar en `index.html` todas las apariciones de `-33.763277,-70.743065` y
-`-33.763277, -70.743065` por las nuevas. No hay nada más que tocar.
-
-Para obtener las coordenadas exactas: desde la tienda, abrir Google Maps, mantener
-presionado el punto donde está el local y copiar los números que aparecen arriba.
+Tienda: Panamericana Sur 4251, local 7, Los Linderos, Buin.
+En el Centro Comercial Los Linderos, junto al Unimarc y la bencinera Shell.

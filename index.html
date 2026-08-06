@@ -1,376 +1,147 @@
-<!DOCTYPE html>
-<!--
-  Proveeduría Los Linderos — página "Cómo llegar" para el link en bio de Instagram.
-
-  El pin (-33.763277, -70.743065) lo confirmó el cliente el 2026-08-02: la entrada
-  del Centro Comercial Los Linderos desde la Panamericana, entre el Unimarc y la
-  bencinera Shell. Apunta a la entrada y no al techo del local a propósito — los
-  navegadores trazan la ruta hasta el punto que se les da, y así termina donde
-  efectivamente hay que doblar. Los letreros del strip center hacen el resto.
-
-  Para moverlo: buscar y reemplazar TODAS las apariciones de
-      -33.763277,-70.743065   (en los enlaces y en el marcador del mapa)
-      -33.763277, -70.743065  (en la constante COORD del script, al final)
-  y actualizar LAT/LON en generar-piezas.py antes de volver a correrlo.
--->
+<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Cómo llegar — Proveeduría Los Linderos</title>
-<meta name="description" content="Panamericana Sur 4251, local 7, Los Linderos, Buin. Toca y te llevamos hasta la puerta.">
-<meta name="theme-color" content="#f7f4ed">
-<meta property="og:title" content="Cómo llegar — Proveeduría Los Linderos">
-<meta property="og:description" content="Panamericana Sur 4251, local 7, Los Linderos, Buin.">
-<meta property="og:type" content="website">
+<title>Proveeduría Los Linderos — Buin</title>
+<meta name="description" content="Tienda de despensa y delicatessen en Los Linderos, Buin. Escríbenos por WhatsApp: precios, stock y consultas.">
+<meta name="theme-color" content="#faf8f4">
+<meta property="og:title" content="Proveeduría Los Linderos">
+<meta property="og:description" content="Tienda en Los Linderos, Buin. Escríbenos por WhatsApp.">
+<meta property="og:locale" content="es_CL">
 <style>
-  *, *::before, *::after { box-sizing: border-box; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:#faf8f4;color:#14120f;
+    font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding:30px 22px calc(30px + env(safe-area-inset-bottom));
+  }
+  .caja{max-width:400px;margin:0 auto;text-align:center}
 
-  :root {
-    --papel:   #f7f4ed;
-    --tinta:   #23301f;
-    --suave:   #5f6b59;
-    --verde:   #2f6b3f;
-    --borde:   #e2ddd1;
-    --tarjeta: #ffffff;
-    --waze:    #33ccff;
+  .marca{
+    font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;
+    color:#948f7e;margin-bottom:12px
+  }
+  h1{font-size:23px;font-weight:600;letter-spacing:-.02em;line-height:1.32}
+  .bajada{color:#5c5749;font-size:15.5px;margin-top:9px}
+
+  .estado{
+    display:inline-flex;align-items:center;gap:7px;margin-top:16px;
+    font-size:14.5px;color:#5c5749
+  }
+  .punto{width:8px;height:8px;border-radius:50%;background:#b9b3a2;flex:none}
+  .abierta .punto{background:#2f9e5f}
+  .abierta{color:#1e6b41;font-weight:500}
+
+  .principal{
+    display:block;margin-top:22px;
+    background:#25d366;color:#fff;text-decoration:none;
+    padding:18px 20px;border-radius:16px;
+    box-shadow:0 4px 20px rgba(37,211,102,.26)
+  }
+  .principal:active{transform:scale(.99)}
+  .principal .linea{
+    display:flex;align-items:center;justify-content:center;gap:11px;
+    font-size:18.5px;font-weight:650;letter-spacing:-.01em
+  }
+  .principal .numero{display:block;margin-top:4px;font-size:14.5px;font-weight:500;opacity:.92}
+  .sub{color:#948f7e;font-size:14px;margin-top:12px}
+
+  hr{border:0;border-top:1px solid #eae6dd;margin:24px 0 20px}
+
+  .lugar strong{display:block;font-size:16.5px;font-weight:600}
+  .lugar .comuna{color:#5c5749;font-size:16px}
+  .lugar .pista{
+    display:block;margin-top:9px;color:#5c5749;font-size:14.5px;line-height:1.5
   }
 
-  html { -webkit-text-size-adjust: 100%; }
-
-  body {
-    margin: 0;
-    padding: 28px 20px calc(40px + env(safe-area-inset-bottom));
-    background: var(--papel);
-    color: var(--tinta);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+  .mapas{display:flex;gap:8px;margin-top:16px}
+  .mapas a{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+    background:#fff;border:1px solid #e6e1d7;border-radius:11px;
+    padding:12px 6px;text-decoration:none;color:#14120f;
+    font-size:14px;font-weight:500
   }
+  .mapas a:active{background:#f2efe8}
 
-  main { max-width: 420px; margin: 0 auto; }
+  .horario{margin-top:22px;font-size:14.5px;color:#5c5749;line-height:1.8}
+  .horario b{color:#14120f;font-weight:500}
 
-  /* ---------- encabezado ---------- */
-
-  header { text-align: center; margin-bottom: 26px; }
-
-  h1 {
-    margin: 0;
-    font-size: 25px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-  }
-
-  .sub {
-    margin: 5px 0 0;
-    font-size: 15px;
-    color: var(--suave);
-  }
-
-  .estado {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    margin-top: 14px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: var(--tarjeta);
-    border: 1px solid var(--borde);
-    font-size: 13.5px;
-    font-weight: 600;
-  }
-
-  .punto {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--suave);
-  }
-  .estado[data-abierto="si"] .punto { background: #34a853; }
-  .estado[data-abierto="no"] .punto { background: #c8553d; }
-
-  /* ---------- botones ---------- */
-
-  .botones { display: grid; gap: 12px; }
-
-  .btn {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 17px 20px;
-    border-radius: 16px;
-    text-decoration: none;
-    color: var(--tinta);
-    background: var(--tarjeta);
-    border: 1px solid var(--borde);
-    font-size: 17px;
-    font-weight: 600;
-    box-shadow: 0 1px 2px rgba(35,48,31,.05);
-    transition: transform .12s ease, box-shadow .12s ease;
-  }
-
-  .btn:active { transform: scale(.98); box-shadow: none; }
-
-  .btn .flecha {
-    margin-left: auto;
-    color: var(--suave);
-    font-size: 20px;
-    line-height: 1;
-  }
-
-  .btn small {
-    display: block;
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--suave);
-    margin-top: 1px;
-  }
-
-  .btn svg { flex: 0 0 auto; }
-
-  .btn--waze  { background: var(--waze); border-color: #17b8ef; color: #06333f; }
-  .btn--waze small, .btn--waze .flecha { color: #0b4a5b; }
-
-  .btn--wsp   { background: #25d366; border-color: #1fbb59; color: #073d1c; }
-  .btn--wsp small, .btn--wsp .flecha { color: #0a5528; }
-
-  /* ---------- mapa ---------- */
-
-  .mapa {
-    margin: 22px 0 6px;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid var(--borde);
-    background: #e8e4da;
-    line-height: 0;
-  }
-  .mapa iframe { width: 100%; height: 190px; border: 0; display: block; }
-
-  /* ---------- datos ---------- */
-
-  .datos {
-    margin-top: 22px;
-    padding: 18px 20px;
-    background: var(--tarjeta);
-    border: 1px solid var(--borde);
-    border-radius: 16px;
-    font-size: 15px;
-  }
-
-  .datos p { margin: 0 0 14px; }
-  .datos p:last-child { margin-bottom: 0; }
-
-  .datos .rotulo {
-    display: block;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .07em;
-    text-transform: uppercase;
-    color: var(--suave);
-    margin-bottom: 3px;
-  }
-
-  .referencia { color: var(--suave); font-size: 14px; }
-
-  .horario-linea { display: flex; justify-content: space-between; gap: 16px; }
-  .horario-linea + .horario-linea { margin-top: 3px; }
-  .horario-linea span:first-child { color: var(--suave); }
-
-  .horario-nota {
-    display: block;
-    margin-top: 9px;
-    padding-top: 9px;
-    border-top: 1px solid var(--borde);
-    color: var(--suave);
-    font-size: 13.5px;
-  }
-
-  footer { margin-top: 26px; text-align: center; }
-
-  footer a {
-    color: var(--verde);
-    font-size: 15px;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .apple {
-    display: block;
-    margin-top: 12px;
-    text-align: center;
-    color: var(--suave);
-    font-size: 14px;
-    text-decoration: none;
-  }
-  .apple:active { color: var(--tinta); }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --papel:   #161914;
-      --tinta:   #eceade;
-      --suave:   #9aa394;
-      --verde:   #7cc98c;
-      --borde:   #2e332b;
-      --tarjeta: #1e221c;
-    }
-    .mapa { background: #24281f; }
-    .mapa iframe { filter: brightness(.82) contrast(1.05); }
+  .ig{
+    display:inline-flex;align-items:center;gap:8px;margin-top:22px;
+    color:#948f7e;text-decoration:none;font-size:14.5px
   }
 </style>
 </head>
 <body>
-<main>
+<div class="caja">
 
-  <header>
-    <h1>Proveeduría Los Linderos</h1>
-    <p class="sub">Panamericana Sur 4251, local 7 · Buin</p>
-    <div class="estado" id="estado" hidden>
-      <span class="punto"></span><span id="estado-texto"></span>
-    </div>
-  </header>
+  <p class="marca">Proveeduría Los Linderos</p>
+  <h1>¿Buscas algo?<br>Pregúntanos por WhatsApp</h1>
+  <p class="bajada">Te decimos el precio y si tenemos.</p>
 
-  <div class="botones">
+  <span class="estado" id="estado"><span class="punto"></span><span id="estadoTexto">Cargando horario…</span></span>
 
-    <a class="btn btn--waze" id="waze"
-       href="https://waze.com/ul?ll=-33.763277,-70.743065&navigate=yes">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
-      </svg>
-      <span>Ir con Waze<small>Navegación paso a paso</small></span>
-      <span class="flecha" aria-hidden="true">›</span>
-    </a>
+  <a class="principal" href="https://wa.me/56928419253?text=Hola%2C%20quer%C3%ADa%20consultar%20por%20un%20producto" target="_blank" rel="noopener">
+    <span class="linea">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 004.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.03c-.25.69-1.44 1.32-1.98 1.36-.53.05-1.02.24-3.45-.72-2.9-1.14-4.74-4.1-4.88-4.29-.14-.19-1.16-1.55-1.16-2.95 0-1.4.73-2.09.99-2.37.26-.29.57-.36.76-.36l.54.01c.17 0 .41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48l-.42.49c-.14.14-.28.29-.12.57.16.29.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.22 1.37.28.14.44.12.6-.07.17-.19.69-.81.88-1.09.19-.29.38-.24.64-.14.26.09 1.66.78 1.94.93.29.14.48.21.55.33.07.12.07.69-.18 1.38z"/></svg>
+      Escríbenos por WhatsApp
+    </span>
+    <span class="numero">+56 9 2841 9253</span>
+  </a>
+  <p class="sub">Un mensaje y te respondemos.</p>
 
-    <a class="btn" id="gmaps"
-       href="https://www.google.com/maps/dir/?api=1&destination=-33.763277,-70.743065&travelmode=driving">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M21 10c0 6-9 13-9 13s-9-7-9-13a9 9 0 0 1 18 0z"></path>
-        <circle cx="12" cy="10" r="3"></circle>
-      </svg>
-      <span>Ir con Google Maps<small>Ruta desde donde estés</small></span>
-      <span class="flecha" aria-hidden="true">›</span>
-    </a>
+  <hr>
 
-    <!--
-      BOTÓN DE WHATSAPP — desactivado a propósito (2026-08-02).
-      Se activa recién cuando el número de la tienda esté conectado y contestando.
-      Para reactivarlo: descomentar este bloque y poner el número real en el href
-      (formato internacional sin signos: 569XXXXXXXX). El CSS .btn--wsp ya está listo.
-
-    <a class="btn btn--wsp"
-       href="https://wa.me/569XXXXXXXX?text=Hola!%20Quiero%20consultar%20por%20un%20producto">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.9-.9L3 20.5l1.6-4.9A8.4 8.4 0 0 1 3.6 11 8.5 8.5 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"></path>
-      </svg>
-      <span>Escríbenos por WhatsApp<small>Precios, stock y pedidos</small></span>
-      <span class="flecha" aria-hidden="true">›</span>
-    </a>
-    -->
-
+  <div class="lugar">
+    <strong>Panamericana Sur 4251, local 7</strong>
+    <span class="comuna">Los Linderos, Buin</span>
+    <span class="pista">En el Centro Comercial Los Linderos, junto al Unimarc y la bencinera Shell.</span>
   </div>
 
-  <div class="mapa">
-    <iframe
-      title="Mapa de la ubicación de Proveeduría Los Linderos"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      src="https://www.openstreetmap.org/export/embed.html?bbox=-70.7476%2C-33.7668%2C-70.7386%2C-33.7598&layer=mapnik&marker=-33.763277%2C-70.743065"></iframe>
+  <div class="mapas">
+    <a href="https://www.google.com/maps/dir/?api=1&destination=-33.763277,-70.743065&travelmode=driving" target="_blank" rel="noopener">Google Maps</a>
+    <a href="https://waze.com/ul?ll=-33.763277,-70.743065&navigate=yes" target="_blank" rel="noopener">Waze</a>
+    <a href="https://maps.apple.com/?daddr=-33.763277,-70.743065&dirflg=d" target="_blank" rel="noopener">Apple Maps</a>
   </div>
 
-  <a class="apple" id="apple"
-     href="https://maps.apple.com/?daddr=-33.763277,-70.743065&dirflg=d">Prefiero Apple Maps</a>
+  <p class="horario">
+    <b>Lun a vie</b> 10:00–19:00 · <b>Sáb</b> 10:00–18:30<br>
+    <b>Dom</b> 11:00–14:00 · almuerzo 14:00–14:30
+  </p>
 
-  <div class="datos">
-    <p>
-      <span class="rotulo">Dónde estamos</span>
-      Panamericana Sur 4251, local 7<br>
-      Los Linderos, Buin · Región Metropolitana<br>
-      <span class="referencia">En el Centro Comercial Los Linderos, junto al Unimarc y la bencinera Shell.</span>
-    </p>
-    <p>
-      <span class="rotulo">Horario</span>
-      <span class="horario-linea"><span>Lunes a viernes</span><span>10:00 – 19:00</span></span>
-      <span class="horario-linea"><span>Sábado</span><span>10:00 – 18:30</span></span>
-      <span class="horario-linea"><span>Domingo</span><span>11:00 – 14:00</span></span>
-      <span class="horario-nota">Cerramos de 14:00 a 14:30 por almuerzo</span>
-    </p>
-  </div>
-
-  <footer>
-    <a href="https://www.instagram.com/proveedurialoslinderos/">Síguenos en Instagram →</a>
-  </footer>
-
-</main>
+  <a class="ig" href="https://www.instagram.com/proveedurialoslinderos/" target="_blank" rel="noopener">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+    @proveedurialoslinderos
+  </a>
+</div>
 
 <script>
-  // Punto único de verdad. Al corregir el pin, cambiar acá y en los href de arriba.
-  var COORD = "-33.763277,-70.743065";
+// El estado se calcula siempre en hora de Chile, nunca en la del visitante: alguien
+// mirando desde otro huso veria un horario que no es.
+(function () {
+  var partes = new Intl.DateTimeFormat('es-CL', {
+    timeZone: 'America/Santiago', hour: '2-digit', minute: '2-digit', hour12: false
+  }).formatToParts(new Date());
+  var v = {};
+  partes.forEach(function (p) { v[p.type] = p.value; });
+  var hora = Number(v.hour) + Number(v.minute) / 60;
+  var dia = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Santiago' })).getDay();
 
-  document.getElementById("waze").href  = "https://waze.com/ul?ll=" + COORD + "&navigate=yes";
-  document.getElementById("gmaps").href = "https://www.google.com/maps/dir/?api=1&destination=" + COORD + "&travelmode=driving";
-  document.getElementById("apple").href = "https://maps.apple.com/?daddr=" + COORD + "&dirflg=d";
+  var tramos = dia === 0 ? [[11, 14]] : dia === 6 ? [[10, 14], [14.5, 18.5]] : [[10, 14], [14.5, 19]];
+  var cierre = tramos[tramos.length - 1][1];
+  var abierta = tramos.some(function (t) { return hora >= t[0] && hora < t[1]; });
+  var almuerzo = !abierta && dia !== 0 && hora >= 14 && hora < 14.5;
 
-  // Abierto / cerrado en vivo, en hora de Chile.
-  // Lun-vie 10-19, sáb 10-18:30, dom 11-14. Cerrado de 14:00 a 14:30 por almuerzo
-  // (el domingo no aplica: a esa hora ya cerró). Los tramos van en minutos desde
-  // medianoche, así se comparan directo contra la hora actual.
-  (function () {
-    var MAÑANA = [600, 840];               // 10:00 – 14:00
-    var horario = {
-      0: [[660, 840]],                     // domingo    11:00 – 14:00
-      1: [MAÑANA, [870, 1140]],            // lun a vie  10:00 – 14:00 y 14:30 – 19:00
-      2: [MAÑANA, [870, 1140]],
-      3: [MAÑANA, [870, 1140]],
-      4: [MAÑANA, [870, 1140]],
-      5: [MAÑANA, [870, 1140]],
-      6: [MAÑANA, [870, 1110]]             // sábado     10:00 – 14:00 y 14:30 – 18:30
-    };
+  var texto = abierta ? 'Abierto ahora, hasta las ' + (cierre === 18.5 ? '18:30' : cierre + ':00')
+    : almuerzo ? 'Cerrado por almuerzo, abrimos 14:30'
+    : hora < tramos[0][0] ? 'Cerrado, abrimos a las ' + tramos[0][0] + ':00'
+    : 'Cerrado por hoy';
 
-    var partes;
-    try {
-      partes = new Intl.DateTimeFormat("es-CL", {
-        timeZone: "America/Santiago", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false
-      }).formatToParts(new Date());
-    } catch (e) {
-      return; // sin soporte de zona horaria, mejor no mostrar nada que mentir
-    }
-
-    var dias = { dom: 0, lun: 1, mar: 2, "mié": 3, mie: 3, jue: 4, vie: 5, "sáb": 6, sab: 6 };
-    var valor = function (tipo) {
-      for (var i = 0; i < partes.length; i++) if (partes[i].type === tipo) return partes[i].value;
-      return "";
-    };
-
-    var dia = dias[valor("weekday").toLowerCase().replace(".", "")];
-    if (dia === undefined) return;
-
-    var ahora  = parseInt(valor("hour"), 10) * 60 + parseInt(valor("minute"), 10);
-    var tramos = horario[dia];
-    var reloj  = function (m) {
-      return Math.floor(m / 60) + ":" + (m % 60 < 10 ? "0" : "") + (m % 60);
-    };
-
-    var texto = "Cerrado ahora", abierto = false;
-    for (var i = 0; i < tramos.length; i++) {
-      if (ahora >= tramos[i][0] && ahora < tramos[i][1]) {
-        abierto = true;
-        texto = "Abierto ahora · cierra a las " + reloj(tramos[i][1]);
-        break;
-      }
-      if (ahora < tramos[i][0]) {
-        // Todavía no abre este tramo: si es el segundo, es la pausa de almuerzo.
-        texto = (i > 0 ? "Cerrado por almuerzo · abre a las " : "Cerrado · abre a las ")
-              + reloj(tramos[i][0]);
-        break;
-      }
-    }
-
-    var caja = document.getElementById("estado");
-    caja.dataset.abierto = abierto ? "si" : "no";
-    document.getElementById("estado-texto").textContent = texto;
-    caja.hidden = false;
-  })();
+  document.getElementById('estadoTexto').textContent = texto;
+  if (abierta) document.getElementById('estado').classList.add('abierta');
+})();
 </script>
 </body>
 </html>
