@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Proveeduría Los Linderos — Buin</title>
-<meta name="description" content="Tienda de despensa y delicatessen en Los Linderos, Buin. Llámanos: precios, stock y consultas.">
+<meta name="description" content="Tienda de despensa y delicatessen en Los Linderos, Buin. Cómo llegar, horario y teléfono.">
 <meta name="theme-color" content="#faf8f4">
 <meta property="og:title" content="Proveeduría Los Linderos">
-<meta property="og:description" content="Tienda en Los Linderos, Buin. Llámanos o pásate por el local.">
+<meta property="og:description" content="Tienda en Los Linderos, Buin. Cómo llegar, horario y teléfono.">
 <meta property="og:locale" content="es_CL">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -15,75 +15,49 @@
     background:#faf8f4;color:#14120f;
     font:18px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;
-    padding:30px 22px calc(30px + env(safe-area-inset-bottom));
+    padding:22px 20px calc(26px + env(safe-area-inset-bottom));
   }
   .caja{max-width:400px;margin:0 auto;text-align:center}
 
+  /* Encabezado compacto: cada pixel que gasta aca es un pixel que empuja hacia abajo lo
+     que la gente vino a buscar, que es como llegar y a que hora abren. */
   .marca{
-    font-size:13px;letter-spacing:.18em;text-transform:uppercase;
-    color:#4a463b;margin-bottom:12px
+    font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:#4a463b;margin-bottom:7px
   }
-  h1{font-size:25px;font-weight:600;letter-spacing:-.02em;line-height:1.32}
-  .bajada{color:#4a463b;font-size:17px;margin-top:9px}
+  h1{font-size:22px;font-weight:600;letter-spacing:-.02em;line-height:1.25}
 
-  /* La insignia se ve de lejos: saber si esta abierto AHORA es la primera pregunta de
-     quien mira la pagina antes de subirse al auto. */
-  .estado{
-    display:inline-flex;align-items:center;gap:8px;margin-top:16px;
-    padding:10px 17px;border-radius:999px;font-size:16px;font-weight:500;
-    background:#f1eee6;border:1px solid #e4dfd3;color:#4a463b
+  /* Estado y horario de hoy juntos y arriba: es la primera pregunta de quien mira la
+     pagina, y antes quedaba perdido al final. */
+  .ahora{
+    margin-top:14px;padding:13px 16px;border-radius:14px;
+    background:#f1eee6;border:1px solid #e4dfd3
   }
-  .punto{width:9px;height:9px;border-radius:50%;background:#b9b3a2;flex:none}
-  .abierta .punto{background:#2f9e5f;box-shadow:0 0 0 3px rgba(47,158,95,.18)}
-  .abierta{color:#186b3d;background:#eaf7ef;border-color:#c8e6d5;font-weight:600}
+  .ahora .titular{
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    font-size:17px;font-weight:600;color:#4a463b
+  }
+  .punto{width:10px;height:10px;border-radius:50%;background:#b9b3a2;flex:none}
+  .ahora.abierta{background:#eaf7ef;border-color:#c8e6d5}
+  .ahora.abierta .titular{color:#186b3d}
+  .ahora.abierta .punto{background:#2f9e5f;box-shadow:0 0 0 3px rgba(47,158,95,.2)}
+  .ahora .hoy{display:block;margin-top:5px;font-size:15.5px;color:#4a463b}
 
-  /* Neutro a proposito: con el verde de WhatsApp la gente creia que el boton abria un
-     chat. Mientras el canal sea el telefono, el color no debe prometer otra cosa. */
-  .principal{
-    display:block;margin-top:22px;
-    background:#14120f;color:#fff;text-decoration:none;
-    padding:21px 20px;border-radius:16px;
-    box-shadow:0 3px 16px rgba(20,18,15,.18)
-  }
-  .principal:active{transform:scale(.99)}
-  .principal .linea{
-    display:flex;align-items:center;justify-content:center;gap:11px;
-    font-size:20px;font-weight:650;letter-spacing:-.01em
-  }
-  .principal .numero{display:block;margin-top:5px;font-size:17px;font-weight:500;opacity:.92}
-  .sub{color:#4a463b;font-size:15.5px;margin-top:13px}
-
-  hr{border:0;border-top:1px solid #eae6dd;margin:24px 0 20px}
-
-  /* El mapa se ve, no hay que imaginarlo. Es lo primero que mira quien no conoce el
-     sector, y evita tener que abrir una app solo para saber donde queda. */
-  .mapa{
-    display:block;position:relative;
-    border:1px solid #e6e1d7;border-radius:14px;overflow:hidden;
-    background:#eeeae1;margin-bottom:14px;text-decoration:none
-  }
-  .mapa iframe{display:block;width:100%;height:200px;border:0;pointer-events:none}
-  .mapa .pie{
-    display:block;padding:13px 15px;background:#fff;border-top:1px solid #eee9df;
-    font-size:16px;color:#14120f;text-align:left;font-weight:500
+  .rotulo{
+    text-align:left;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    color:#4a463b;margin:22px 0 10px
   }
 
-  .lugar{text-align:left;margin-bottom:16px}
-  .lugar .pista{display:block;color:#4a463b;font-size:16px;line-height:1.6}
-
-  /* Filas grandes en vez de tres botones apretados: cada una dice a donde lleva y para
-     que sirve, que era lo que hacia clara la version anterior. */
+  /* Filas grandes: cada una dice a donde lleva y para que sirve. Google Maps primero y
+     destacado, que es la app de navegacion mas usada del mundo por lejos. */
   .ir{
     display:flex;align-items:center;gap:13px;
     background:#fff;border:1px solid #e6e1d7;border-radius:13px;
-    padding:17px 16px;margin-bottom:11px;
+    padding:16px;margin-bottom:10px;
     text-decoration:none;color:inherit;text-align:left
   }
   .ir:active{background:#f4f1ea}
-  /* Google Maps va primero y con mas peso: es la app de navegacion mas usada del mundo
-     por un factor de cuatro. Waze debajo, que en Latinoamerica pesa por el trafico en
-     tiempo real. Apple Maps solo aparece en iPhone: en Android no sirve de nada. */
-  .ir.destacada{border-color:#14120f;border-width:2px;padding:19px 16px}
+  .ir.destacada{border-color:#14120f;border-width:2px;padding:18px 16px}
   .ir.destacada .txt strong{font-size:18px}
   .ir .icono{
     width:40px;height:40px;flex:none;border-radius:11px;
@@ -97,11 +71,50 @@
   .ir .txt em{display:block;color:#4a463b;font-size:15px;font-style:normal;margin-top:1px}
   .ir .flecha{margin-left:auto;color:#c3bdae;flex:none}
 
-  .horario{margin-top:24px;font-size:16px;color:#4a463b;line-height:1.9}
-  .horario b{color:#14120f;font-weight:500}
+  /* Neutro a proposito: con el verde de WhatsApp la gente creia que el boton abria un
+     chat. Mientras el canal sea el telefono, el color no debe prometer otra cosa. */
+  .principal{
+    display:block;margin-top:6px;
+    background:#14120f;color:#fff;text-decoration:none;
+    padding:19px 20px;border-radius:15px;
+    box-shadow:0 3px 16px rgba(20,18,15,.18)
+  }
+  .principal:active{transform:scale(.99)}
+  .principal .linea{
+    display:flex;align-items:center;justify-content:center;gap:11px;
+    font-size:19px;font-weight:650;letter-spacing:-.01em
+  }
+  .principal .numero{display:block;margin-top:4px;font-size:16.5px;font-weight:500;opacity:.92}
+
+  .direccion{
+    margin-top:20px;text-align:left;font-size:16px;line-height:1.55
+  }
+  .direccion strong{display:block;font-weight:600}
+  .direccion span{color:#4a463b}
+
+  /* El mapa va despues de los botones: sirve para ubicarse, pero quien ya sabe donde
+     queda solo quiere el boton. */
+  .mapa{
+    display:block;margin-top:12px;
+    border:1px solid #e6e1d7;border-radius:14px;overflow:hidden;
+    background:#eeeae1;text-decoration:none
+  }
+  .mapa iframe{display:block;width:100%;height:170px;border:0;pointer-events:none}
+
+  .semana{
+    margin-top:12px;text-align:left;background:#fff;
+    border:1px solid #e6e1d7;border-radius:13px;padding:14px 16px
+  }
+  .semana dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:16px}
+  .semana dt{color:#14120f;font-weight:500}
+  .semana dd{text-align:right;color:#4a463b}
+  .semana .almuerzo{
+    margin-top:11px;padding-top:11px;border-top:1px solid #eee9df;
+    font-size:15px;color:#4a463b
+  }
 
   .ig{
-    display:inline-flex;align-items:center;gap:8px;margin-top:22px;
+    display:inline-flex;align-items:center;gap:8px;margin-top:20px;
     color:#4a463b;text-decoration:none;font-size:16px
   }
 </style>
@@ -111,43 +124,13 @@
 
   <p class="marca">Proveeduría Los Linderos</p>
   <h1>Tienda en Los Linderos, Buin</h1>
-  <p class="bajada">Congelados, quesos, café de origen y despensa fina.</p>
 
-  <span class="estado" id="estado"><span class="punto"></span><span id="estadoTexto">Cargando horario…</span></span>
-
-  <!-- WhatsApp fuera de servicio desde el 2026-08-06: la cuenta quedó restringida y la
-       gente que tocaba este botón escribía a un número que no contesta. Para devolverlo
-       cuando se recupere, basta con descomentar este bloque y sacar el de llamada.
-  <a class="principal" href="https://wa.me/56928419253?text=Hola%2C%20quer%C3%ADa%20consultar%20por%20un%20producto" target="_blank" rel="noopener">
-    <span class="linea">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 004.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.03c-.25.69-1.44 1.32-1.98 1.36-.53.05-1.02.24-3.45-.72-2.9-1.14-4.74-4.1-4.88-4.29-.14-.19-1.16-1.55-1.16-2.95 0-1.4.73-2.09.99-2.37.26-.29.57-.36.76-.36l.54.01c.17 0 .41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48l-.42.49c-.14.14-.28.29-.12.57.16.29.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.22 1.37.28.14.44.12.6-.07.17-.19.69-.81.88-1.09.19-.29.38-.24.64-.14.26.09 1.66.78 1.94.93.29.14.48.21.55.33.07.12.07.69-.18 1.38z"/></svg>
-      Escríbenos por WhatsApp
-    </span>
-    <span class="numero">+56 9 2841 9253</span>
-  </a>
-  <p class="sub">Un mensaje y te respondemos.</p>
-  -->
-  <a class="principal" href="tel:+56928419253">
-    <span class="linea">
-      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
-      Llámanos
-    </span>
-    <span class="numero">+56 9 2841 9253</span>
-  </a>
-  <p class="sub">Te decimos al tiro si tenemos lo que buscas.</p>
-
-  <hr>
-
-  <a class="mapa" href="https://www.google.com/maps/dir/?api=1&destination=-33.763277,-70.743065&travelmode=driving" target="_blank" rel="noopener">
-    <iframe
-      src="https://www.openstreetmap.org/export/embed.html?bbox=-70.7481%2C-33.7663%2C-70.7381%2C-33.7603&amp;layer=mapnik&amp;marker=-33.763277%2C-70.743065"
-      loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de la tienda"></iframe>
-    <span class="pie">Panamericana Sur 4251, local 7 · Los Linderos, Buin</span>
-  </a>
-
-  <div class="lugar">
-    <span class="pista">Estamos en el Centro Comercial Los Linderos, junto al Unimarc y la bencinera Shell.</span>
+  <div class="ahora" id="ahora">
+    <span class="titular"><span class="punto"></span><span id="estadoTexto">Cargando horario…</span></span>
+    <span class="hoy" id="hoyTexto"></span>
   </div>
+
+  <p class="rotulo">Cómo llegar</p>
 
   <a class="ir destacada" href="https://www.google.com/maps/dir/?api=1&destination=-33.763277,-70.743065&travelmode=driving" target="_blank" rel="noopener">
     <span class="icono g">G</span>
@@ -167,10 +150,42 @@
     <svg class="flecha" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
   </a>
 
-  <p class="horario">
-    <b>Lun a vie</b> 10:00–19:00 · <b>Sáb</b> 10:00–18:30<br>
-    <b>Dom</b> 11:00–14:00 · almuerzo 14:00–14:30
+  <!-- WhatsApp fuera de servicio desde el 2026-08-06: la cuenta quedó restringida y la
+       gente que tocaba este botón escribía a un número que no contesta. Para devolverlo
+       cuando se recupere, basta con descomentar este bloque y sacar el de llamada.
+  <a class="principal" href="https://wa.me/56928419253?text=Hola%2C%20quer%C3%ADa%20consultar%20por%20un%20producto" target="_blank" rel="noopener">
+    <span class="linea">Escríbenos por WhatsApp</span>
+    <span class="numero">+56 9 2841 9253</span>
+  </a>
+  -->
+  <a class="principal" href="tel:+56928419253">
+    <span class="linea">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+      Llámanos
+    </span>
+    <span class="numero">+56 9 2841 9253</span>
+  </a>
+
+  <p class="direccion">
+    <strong>Panamericana Sur 4251, local 7</strong>
+    <span>Los Linderos, Buin. En el Centro Comercial Los Linderos, junto al Unimarc y la bencinera Shell.</span>
   </p>
+
+  <a class="mapa" href="https://www.google.com/maps/dir/?api=1&destination=-33.763277,-70.743065&travelmode=driving" target="_blank" rel="noopener">
+    <iframe
+      src="https://www.openstreetmap.org/export/embed.html?bbox=-70.7481%2C-33.7663%2C-70.7381%2C-33.7603&amp;layer=mapnik&amp;marker=-33.763277%2C-70.743065"
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de la tienda"></iframe>
+  </a>
+
+  <p class="rotulo">Horario</p>
+  <div class="semana">
+    <dl>
+      <dt>Lunes a viernes</dt><dd>10:00 – 19:00</dd>
+      <dt>Sábado</dt><dd>10:00 – 18:30</dd>
+      <dt>Domingo</dt><dd>11:00 – 14:00</dd>
+    </dl>
+    <p class="almuerzo">De lunes a sábado cerramos de 14:00 a 14:30 para almorzar.</p>
+  </div>
 
   <a class="ig" href="https://www.instagram.com/proveedurialoslinderos/" target="_blank" rel="noopener">
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
@@ -191,17 +206,28 @@
   var dia = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Santiago' })).getDay();
 
   var tramos = dia === 0 ? [[11, 14]] : dia === 6 ? [[10, 14], [14.5, 18.5]] : [[10, 14], [14.5, 19]];
+  var abre = tramos[0][0];
   var cierre = tramos[tramos.length - 1][1];
+  var reloj = function (n) { return n === 18.5 ? '18:30' : n === 14.5 ? '14:30' : n + ':00'; };
+
   var abierta = tramos.some(function (t) { return hora >= t[0] && hora < t[1]; });
   var almuerzo = !abierta && dia !== 0 && hora >= 14 && hora < 14.5;
 
-  var texto = abierta ? 'Abierto ahora, hasta las ' + (cierre === 18.5 ? '18:30' : cierre + ':00')
-    : almuerzo ? 'Cerrado por almuerzo, abrimos 14:30'
-    : hora < tramos[0][0] ? 'Cerrado, abrimos a las ' + tramos[0][0] + ':00'
+  var titular = abierta ? 'Abierto ahora'
+    : almuerzo ? 'Cerrado por almuerzo'
+    : hora < abre ? 'Cerrado, abre más tarde'
     : 'Cerrado por hoy';
 
-  document.getElementById('estadoTexto').textContent = texto;
-  if (abierta) document.getElementById('estado').classList.add('abierta');
+  // El horario de hoy va junto al estado: es lo que la gente necesita para decidir si
+  // sale ahora o mas rato, y antes obligaba a bajar hasta el final de la pagina.
+  var hoy = abierta ? 'Hoy atendemos hasta las ' + reloj(cierre)
+    : almuerzo ? 'Volvemos a las 14:30, hasta las ' + reloj(cierre)
+    : hora < abre ? 'Hoy abrimos a las ' + reloj(abre) + ' y cerramos a las ' + reloj(cierre)
+    : 'Mañana abrimos a las ' + (dia === 6 ? '11:00' : '10:00');
+
+  document.getElementById('estadoTexto').textContent = titular;
+  document.getElementById('hoyTexto').textContent = hoy;
+  if (abierta) document.getElementById('ahora').classList.add('abierta');
 })();
 
 // Apple Maps solo se muestra en iPhone o iPad. En Android es una opcion que no lleva a
