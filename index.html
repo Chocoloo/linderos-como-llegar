@@ -13,25 +13,25 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{
     background:#faf8f4;color:#14120f;
-    font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    font:18px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;
     padding:30px 22px calc(30px + env(safe-area-inset-bottom));
   }
   .caja{max-width:400px;margin:0 auto;text-align:center}
 
   .marca{
-    font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;
-    color:#948f7e;margin-bottom:12px
+    font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    color:#4a463b;margin-bottom:12px
   }
-  h1{font-size:23px;font-weight:600;letter-spacing:-.02em;line-height:1.32}
-  .bajada{color:#5c5749;font-size:15.5px;margin-top:9px}
+  h1{font-size:25px;font-weight:600;letter-spacing:-.02em;line-height:1.32}
+  .bajada{color:#4a463b;font-size:17px;margin-top:9px}
 
   /* La insignia se ve de lejos: saber si esta abierto AHORA es la primera pregunta de
      quien mira la pagina antes de subirse al auto. */
   .estado{
     display:inline-flex;align-items:center;gap:8px;margin-top:16px;
-    padding:8px 15px;border-radius:999px;font-size:14.5px;font-weight:500;
-    background:#f1eee6;border:1px solid #e4dfd3;color:#5c5749
+    padding:10px 17px;border-radius:999px;font-size:16px;font-weight:500;
+    background:#f1eee6;border:1px solid #e4dfd3;color:#4a463b
   }
   .punto{width:9px;height:9px;border-radius:50%;background:#b9b3a2;flex:none}
   .abierta .punto{background:#2f9e5f;box-shadow:0 0 0 3px rgba(47,158,95,.18)}
@@ -42,16 +42,16 @@
   .principal{
     display:block;margin-top:22px;
     background:#14120f;color:#fff;text-decoration:none;
-    padding:18px 20px;border-radius:16px;
+    padding:21px 20px;border-radius:16px;
     box-shadow:0 3px 16px rgba(20,18,15,.18)
   }
   .principal:active{transform:scale(.99)}
   .principal .linea{
     display:flex;align-items:center;justify-content:center;gap:11px;
-    font-size:18.5px;font-weight:650;letter-spacing:-.01em
+    font-size:20px;font-weight:650;letter-spacing:-.01em
   }
-  .principal .numero{display:block;margin-top:4px;font-size:14.5px;font-weight:500;opacity:.92}
-  .sub{color:#948f7e;font-size:14px;margin-top:12px}
+  .principal .numero{display:block;margin-top:5px;font-size:17px;font-weight:500;opacity:.92}
+  .sub{color:#4a463b;font-size:15.5px;margin-top:13px}
 
   hr{border:0;border-top:1px solid #eae6dd;margin:24px 0 20px}
 
@@ -62,47 +62,47 @@
     border:1px solid #e6e1d7;border-radius:14px;overflow:hidden;
     background:#eeeae1;margin-bottom:14px;text-decoration:none
   }
-  .mapa iframe{display:block;width:100%;height:190px;border:0;pointer-events:none}
+  .mapa iframe{display:block;width:100%;height:200px;border:0;pointer-events:none}
   .mapa .pie{
-    display:block;padding:11px 14px;background:#fff;border-top:1px solid #eee9df;
-    font-size:14px;color:#14120f;text-align:left;font-weight:500
+    display:block;padding:13px 15px;background:#fff;border-top:1px solid #eee9df;
+    font-size:16px;color:#14120f;text-align:left;font-weight:500
   }
 
   .lugar{text-align:left;margin-bottom:16px}
-  .lugar .pista{display:block;color:#5c5749;font-size:14.5px;line-height:1.55}
+  .lugar .pista{display:block;color:#4a463b;font-size:16px;line-height:1.6}
 
   /* Filas grandes en vez de tres botones apretados: cada una dice a donde lleva y para
      que sirve, que era lo que hacia clara la version anterior. */
   .ir{
     display:flex;align-items:center;gap:13px;
     background:#fff;border:1px solid #e6e1d7;border-radius:13px;
-    padding:14px 16px;margin-bottom:10px;
+    padding:17px 16px;margin-bottom:11px;
     text-decoration:none;color:inherit;text-align:left
   }
   .ir:active{background:#f4f1ea}
   /* Google Maps va primero y con mas peso: es la app de navegacion mas usada del mundo
      por un factor de cuatro. Waze debajo, que en Latinoamerica pesa por el trafico en
      tiempo real. Apple Maps solo aparece en iPhone: en Android no sirve de nada. */
-  .ir.destacada{border-color:#14120f;border-width:1.5px;padding:16px}
-  .ir.destacada .txt strong{font-size:16.5px}
+  .ir.destacada{border-color:#14120f;border-width:2px;padding:19px 16px}
+  .ir.destacada .txt strong{font-size:18px}
   .ir .icono{
-    width:36px;height:36px;flex:none;border-radius:10px;
+    width:40px;height:40px;flex:none;border-radius:11px;
     display:flex;align-items:center;justify-content:center;
     font-size:15px;font-weight:700;color:#fff;letter-spacing:-.02em
   }
   .ir .g{background:#1a73e8}
   .ir .w{background:#22b7e6}
   .ir .a{background:#5b5b60}
-  .ir .txt strong{display:block;font-size:15.5px;font-weight:600}
-  .ir .txt em{display:block;color:#8b8577;font-size:13.5px;font-style:normal;margin-top:1px}
+  .ir .txt strong{display:block;font-size:17px;font-weight:600}
+  .ir .txt em{display:block;color:#4a463b;font-size:15px;font-style:normal;margin-top:1px}
   .ir .flecha{margin-left:auto;color:#c3bdae;flex:none}
 
-  .horario{margin-top:22px;font-size:14.5px;color:#5c5749;line-height:1.8}
+  .horario{margin-top:24px;font-size:16px;color:#4a463b;line-height:1.9}
   .horario b{color:#14120f;font-weight:500}
 
   .ig{
     display:inline-flex;align-items:center;gap:8px;margin-top:22px;
-    color:#948f7e;text-decoration:none;font-size:14.5px
+    color:#4a463b;text-decoration:none;font-size:16px
   }
 </style>
 </head>
