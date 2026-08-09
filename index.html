@@ -26,13 +26,16 @@
   h1{font-size:23px;font-weight:600;letter-spacing:-.02em;line-height:1.32}
   .bajada{color:#5c5749;font-size:15.5px;margin-top:9px}
 
+  /* La insignia se ve de lejos: saber si esta abierto AHORA es la primera pregunta de
+     quien mira la pagina antes de subirse al auto. */
   .estado{
-    display:inline-flex;align-items:center;gap:7px;margin-top:16px;
-    font-size:14.5px;color:#5c5749
+    display:inline-flex;align-items:center;gap:8px;margin-top:16px;
+    padding:8px 15px;border-radius:999px;font-size:14.5px;font-weight:500;
+    background:#f1eee6;border:1px solid #e4dfd3;color:#5c5749
   }
-  .punto{width:8px;height:8px;border-radius:50%;background:#b9b3a2;flex:none}
-  .abierta .punto{background:#2f9e5f}
-  .abierta{color:#1e6b41;font-weight:500}
+  .punto{width:9px;height:9px;border-radius:50%;background:#b9b3a2;flex:none}
+  .abierta .punto{background:#2f9e5f;box-shadow:0 0 0 3px rgba(47,158,95,.18)}
+  .abierta{color:#186b3d;background:#eaf7ef;border-color:#c8e6d5;font-weight:600}
 
   /* Neutro a proposito: con el verde de WhatsApp la gente creia que el boton abria un
      chat. Mientras el canal sea el telefono, el color no debe prometer otra cosa. */
@@ -77,6 +80,11 @@
     text-decoration:none;color:inherit;text-align:left
   }
   .ir:active{background:#f4f1ea}
+  /* Google Maps va primero y con mas peso: es la app de navegacion mas usada del mundo
+     por un factor de cuatro. Waze debajo, que en Latinoamerica pesa por el trafico en
+     tiempo real. Apple Maps solo aparece en iPhone: en Android no sirve de nada. */
+  .ir.destacada{border-color:#14120f;border-width:1.5px;padding:16px}
+  .ir.destacada .txt strong{font-size:16.5px}
   .ir .icono{
     width:36px;height:36px;flex:none;border-radius:10px;
     display:flex;align-items:center;justify-content:center;
@@ -141,7 +149,7 @@
     <span class="pista">Estamos en el Centro Comercial Los Linderos, junto al Unimarc y la bencinera Shell.</span>
   </div>
 
-  <a class="ir" href="https://www.google.com/maps/dir/?api=1&destination=-33.763277,-70.743065&travelmode=driving" target="_blank" rel="noopener">
+  <a class="ir destacada" href="https://www.google.com/maps/dir/?api=1&destination=-33.763277,-70.743065&travelmode=driving" target="_blank" rel="noopener">
     <span class="icono g">G</span>
     <span class="txt"><strong>Ir con Google Maps</strong><em>Ruta desde donde estés</em></span>
     <svg class="flecha" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
@@ -153,7 +161,7 @@
     <svg class="flecha" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
   </a>
 
-  <a class="ir" href="https://maps.apple.com/?daddr=-33.763277,-70.743065&dirflg=d" target="_blank" rel="noopener">
+  <a class="ir" id="apple" style="display:none" href="https://maps.apple.com/?daddr=-33.763277,-70.743065&dirflg=d" target="_blank" rel="noopener">
     <span class="icono a">A</span>
     <span class="txt"><strong>Ir con Apple Maps</strong><em>Para iPhone</em></span>
     <svg class="flecha" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
@@ -194,6 +202,14 @@
 
   document.getElementById('estadoTexto').textContent = texto;
   if (abierta) document.getElementById('estado').classList.add('abierta');
+})();
+
+// Apple Maps solo se muestra en iPhone o iPad. En Android es una opcion que no lleva a
+// ninguna parte util, y cada opcion de mas hace mas lenta la decision.
+(function () {
+  var esApple = /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (esApple) document.getElementById('apple').style.display = 'flex';
 })();
 </script>
 </body>
