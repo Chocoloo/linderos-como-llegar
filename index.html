@@ -52,20 +52,42 @@
 
   hr{border:0;border-top:1px solid #eae6dd;margin:24px 0 20px}
 
-  .lugar strong{display:block;font-size:16.5px;font-weight:600}
-  .lugar .comuna{color:#5c5749;font-size:16px}
-  .lugar .pista{
-    display:block;margin-top:9px;color:#5c5749;font-size:14.5px;line-height:1.5
+  /* El mapa se ve, no hay que imaginarlo. Es lo primero que mira quien no conoce el
+     sector, y evita tener que abrir una app solo para saber donde queda. */
+  .mapa{
+    display:block;position:relative;
+    border:1px solid #e6e1d7;border-radius:14px;overflow:hidden;
+    background:#eeeae1;margin-bottom:14px;text-decoration:none
+  }
+  .mapa iframe{display:block;width:100%;height:190px;border:0;pointer-events:none}
+  .mapa .pie{
+    display:block;padding:11px 14px;background:#fff;border-top:1px solid #eee9df;
+    font-size:14px;color:#14120f;text-align:left;font-weight:500
   }
 
-  .mapas{display:flex;gap:8px;margin-top:16px}
-  .mapas a{
-    flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
-    background:#fff;border:1px solid #e6e1d7;border-radius:11px;
-    padding:12px 6px;text-decoration:none;color:#14120f;
-    font-size:14px;font-weight:500
+  .lugar{text-align:left;margin-bottom:16px}
+  .lugar .pista{display:block;color:#5c5749;font-size:14.5px;line-height:1.55}
+
+  /* Filas grandes en vez de tres botones apretados: cada una dice a donde lleva y para
+     que sirve, que era lo que hacia clara la version anterior. */
+  .ir{
+    display:flex;align-items:center;gap:13px;
+    background:#fff;border:1px solid #e6e1d7;border-radius:13px;
+    padding:14px 16px;margin-bottom:10px;
+    text-decoration:none;color:inherit;text-align:left
   }
-  .mapas a:active{background:#f2efe8}
+  .ir:active{background:#f4f1ea}
+  .ir .icono{
+    width:36px;height:36px;flex:none;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;font-weight:700;color:#fff;letter-spacing:-.02em
+  }
+  .ir .g{background:#1a73e8}
+  .ir .w{background:#22b7e6}
+  .ir .a{background:#5b5b60}
+  .ir .txt strong{display:block;font-size:15.5px;font-weight:600}
+  .ir .txt em{display:block;color:#8b8577;font-size:13.5px;font-style:normal;margin-top:1px}
+  .ir .flecha{margin-left:auto;color:#c3bdae;flex:none}
 
   .horario{margin-top:22px;font-size:14.5px;color:#5c5749;line-height:1.8}
   .horario b{color:#14120f;font-weight:500}
@@ -108,17 +130,34 @@
 
   <hr>
 
+  <a class="mapa" href="https://www.google.com/maps/dir/?api=1&destination=-33.763277,-70.743065&travelmode=driving" target="_blank" rel="noopener">
+    <iframe
+      src="https://www.openstreetmap.org/export/embed.html?bbox=-70.7481%2C-33.7663%2C-70.7381%2C-33.7603&amp;layer=mapnik&amp;marker=-33.763277%2C-70.743065"
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de la tienda"></iframe>
+    <span class="pie">Panamericana Sur 4251, local 7 · Los Linderos, Buin</span>
+  </a>
+
   <div class="lugar">
-    <strong>Panamericana Sur 4251, local 7</strong>
-    <span class="comuna">Los Linderos, Buin</span>
-    <span class="pista">En el Centro Comercial Los Linderos, junto al Unimarc y la bencinera Shell.</span>
+    <span class="pista">Estamos en el Centro Comercial Los Linderos, junto al Unimarc y la bencinera Shell.</span>
   </div>
 
-  <div class="mapas">
-    <a href="https://www.google.com/maps/dir/?api=1&destination=-33.763277,-70.743065&travelmode=driving" target="_blank" rel="noopener">Google Maps</a>
-    <a href="https://waze.com/ul?ll=-33.763277,-70.743065&navigate=yes" target="_blank" rel="noopener">Waze</a>
-    <a href="https://maps.apple.com/?daddr=-33.763277,-70.743065&dirflg=d" target="_blank" rel="noopener">Apple Maps</a>
-  </div>
+  <a class="ir" href="https://www.google.com/maps/dir/?api=1&destination=-33.763277,-70.743065&travelmode=driving" target="_blank" rel="noopener">
+    <span class="icono g">G</span>
+    <span class="txt"><strong>Ir con Google Maps</strong><em>Ruta desde donde estés</em></span>
+    <svg class="flecha" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+
+  <a class="ir" href="https://waze.com/ul?ll=-33.763277,-70.743065&navigate=yes" target="_blank" rel="noopener">
+    <span class="icono w">W</span>
+    <span class="txt"><strong>Ir con Waze</strong><em>Navegación paso a paso</em></span>
+    <svg class="flecha" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+
+  <a class="ir" href="https://maps.apple.com/?daddr=-33.763277,-70.743065&dirflg=d" target="_blank" rel="noopener">
+    <span class="icono a">A</span>
+    <span class="txt"><strong>Ir con Apple Maps</strong><em>Para iPhone</em></span>
+    <svg class="flecha" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
 
   <p class="horario">
     <b>Lun a vie</b> 10:00–19:00 · <b>Sáb</b> 10:00–18:30<br>
