@@ -21,8 +21,12 @@
 
   /* Encabezado compacto: cada pixel que gasta aca es un pixel que empuja hacia abajo lo
      que la gente vino a buscar, que es como llegar y a que hora abren. */
+  /* 15 px es el piso de todo texto de esta pagina, incluido el que "solo decora": buena parte
+     de las clientas son mayores y el nombre de la tienda es lo que confirma que llegaron a
+     donde querian. El espaciado baja de .18 a .14em para que en un telefono de 360 px la
+     linea siga entrando entera. */
   .marca{
-    font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
+    font-size:15px;letter-spacing:.14em;text-transform:uppercase;
     color:#4a463b;margin-bottom:7px
   }
   h1{font-size:22px;font-weight:600;letter-spacing:-.02em;line-height:1.25}
@@ -39,12 +43,12 @@
   }
   .punto{width:10px;height:10px;border-radius:50%;background:#b9b3a2;flex:none}
   .ahora.abierta{background:#eaf7ef;border-color:#c8e6d5}
-  .ahora.abierta .titular{color:#186b3d}
+  .ahora.abierta .titular{color:#155e35}   /* 7,1:1 sobre el verde palido; el anterior daba 5,9 */
   .ahora.abierta .punto{background:#2f9e5f;box-shadow:0 0 0 3px rgba(47,158,95,.2)}
   .ahora .hoy{display:block;margin-top:5px;font-size:15.5px;color:#4a463b}
 
   .rotulo{
-    text-align:left;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    text-align:left;font-size:15px;letter-spacing:.12em;text-transform:uppercase;
     color:#4a463b;margin:22px 0 10px
   }
 
@@ -65,7 +69,10 @@
     font-size:15px;font-weight:700;color:#fff;letter-spacing:-.02em
   }
   .ir .g{background:#1a73e8}
-  .ir .w{background:#22b7e6}
+  /* El celeste de Waze es tan claro que la W blanca encima daba 2,3:1 -- se veia como una
+     mancha. Se conserva el color de marca, que es lo que hace reconocible el boton, y se
+     invierte la letra a azul casi negro: 7,7:1. */
+  .ir .w{background:#22b7e6;color:#001a21}
   .ir .a{background:#5b5b60}
   .ir .txt strong{display:block;font-size:17px;font-weight:600}
   .ir .txt em{display:block;color:#4a463b;font-size:15px;font-style:normal;margin-top:1px}
@@ -144,7 +151,12 @@
     border:1px solid #e6e1d7;border-radius:14px;overflow:hidden;
     background:#eeeae1;text-decoration:none
   }
-  .mapa iframe{display:block;width:100%;height:170px;border:0;pointer-events:none}
+  /* 215 y no 170: OpenStreetMap dibuja su aviso de atribucion dentro del recuadro y en un
+     telefono angosto se le van tres lineas, que a 170 px se comian el tercio de abajo del
+     mapa. No se puede quitar (ni corresponde), asi que se le da altura para que el mapa siga
+     siendo lo que se ve. El pin va desplazado al tercio superior por el bbox, para que no
+     caiga justo detras del aviso. */
+  .mapa iframe{display:block;width:100%;height:215px;border:0;pointer-events:none}
 
   .semana{
     margin-top:12px;text-align:left;background:#fff;
@@ -158,10 +170,16 @@
     font-size:15px;color:#4a463b
   }
 
+  /* El padding no es aire: es area de toque. Sin el, este enlace medía 25 px de alto y habia
+     que apuntarle. Con 12 px arriba y abajo pasa de 44 px, que es el minimo de las pautas
+     WCAG para un objetivo tactil (2.5.5) -- y quien no le achunta a la primera normalmente
+     no vuelve a intentarlo. */
   .ig{
-    display:inline-flex;align-items:center;gap:8px;margin-top:20px;
+    display:inline-flex;align-items:center;gap:8px;margin-top:10px;
+    padding:12px 16px;
     color:#4a463b;text-decoration:none;font-size:16px
   }
+  .ig:active{color:#14120f}
 </style>
 </head>
 <body>
@@ -228,7 +246,7 @@
 
   <a class="mapa" href="https://www.google.com/maps/dir/?api=1&destination=-33.763277,-70.743065&travelmode=driving" target="_blank" rel="noopener">
     <iframe
-      src="https://www.openstreetmap.org/export/embed.html?bbox=-70.7481%2C-33.7663%2C-70.7381%2C-33.7603&amp;layer=mapnik&amp;marker=-33.763277%2C-70.743065"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=-70.7481%2C-33.7672%2C-70.7381%2C-33.7612&amp;layer=mapnik&amp;marker=-33.763277%2C-70.743065"
       loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de la tienda"></iframe>
   </a>
 
